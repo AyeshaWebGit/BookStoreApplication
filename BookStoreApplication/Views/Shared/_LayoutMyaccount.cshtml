@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="side-2">
+    <div class="block block-account-navigation">
+        @*<div class="title">
+            <strong>My account - @ViewData["Title"]</strong>
+        </div>*@
+        <div class="listbox">
+            <ul class="list">
+                <li class="customer-info active">
+                    <a asp-action="ChangePassword" asp-controller="Account"><span>Change Password</span></a>
+
+                </li>
+                <li class="customer-addresses inactive">
+                    <a href="/customer/shipaddresses"><span>Ship addresses</span></a>
+                </li>
+                <li class="customer-addresses inactive">
+                    <a href="/customer/profilelist">
+                        <span>Manage Payment Profiles</span>
+                    </a>
+                </li>
+                <li class="customer-orders inactive">
+                    <a href="/openorder/history"><span>Open Orders</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="Center-2">
+    @RenderBody()
+</div>

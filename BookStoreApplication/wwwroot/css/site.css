@@ -1,0 +1,205 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: black;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #f3f3f3;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+.logo {
+    height: 40px;
+    width: 107px;
+}
+.jumbotron{
+    background:none;
+}
+
+
+/* ....carousel .... */
+.MultiCarousel {
+    float: left;
+    overflow: hidden;
+    padding: 15px;
+    width: 100%;
+    position: relative;
+    margin-top: -20px;
+}
+
+.MultiCarousel {
+    height: 500px;
+}
+
+    .MultiCarousel .MultiCarousel-inner {
+        transition: 1s ease all;
+        float: left;
+    }
+
+        .MultiCarousel .MultiCarousel-inner .item {
+            float: left;
+        }
+
+            .MultiCarousel .MultiCarousel-inner .item > div {
+                text-align: center;
+                padding: 10px;
+                margin: 25px 8px 0px 3px;
+                background: #fff;
+                color: #666;
+            }
+
+    .MultiCarousel .leftLst, .MultiCarousel .rightLst {
+        position: absolute;
+        border-radius: 50%;
+        top: calc(50% - 1px);
+    }
+
+    .MultiCarousel .leftLst {
+        left: 0;
+        width: 30px;
+        height: 30px;
+        background: #fff;
+        padding: 0px;
+    }
+
+    .MultiCarousel .rightLst {
+        right: 0;
+        width: 30px;
+        height: 30px;
+        background: #fff;
+        padding: 0px;
+    }
+
+        .MultiCarousel .leftLst.over, .MultiCarousel .rightLst.over {
+            pointer-events: none;
+            /*background: #ccc;*/
+        }
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.empty-item {
+    visibility: hidden;
+}
+
+
+.NextPrev {
+    max-width: 100%;
+}
+.prev-icon, .next-icon {
+    width: 30px; /* or whatever size you prefer */
+    height: auto; /* maintaining the aspect ratio */
+}
+.page-title h1 {
+    text-align: center;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: lighter;
+    text-transform: uppercase;
+    color: #aaa;
+}
+.page-body p {
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    border: 1px solid #eee;
+    background-color: #fff;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+@media (min-width: 1261px) {
+    .page-body {
+        padding: 40px;
+    }
+}
+@media (min-width: 1261px) {
+    .side-2 {
+        background: white;
+        width: 20%;
+        float: left;
+        margin: 81px 0 40px;
+    }
+
+    .Center-2 {
+        width: 80%;
+        float: right;
+    }
+}
+ol, ul {
+    list-style: none;
+}
+.listbox {
+    border: none;
+    padding: 5px 0;
+}
+.side-2 {
+    margin: 0 0 20px;
+}

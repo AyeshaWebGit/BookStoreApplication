@@ -1,0 +1,207 @@
+﻿@model IEnumerable<BookModel>
+@using System.Linq
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/site.js?v=4q1jwFhaPaZgr8WAUSrux6hAuh0XDg9kPS3xIVq36I0"></script>
+
+<script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+<script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+<div class="container">
+    <div class="row">
+        <div class="MultiCarousel" data-items="1,2,2,3" data-slide="1" id="MultiCarousel" data-interval="1000" >
+            <div class="MultiCarousel-inner">
+                @foreach (var Book in Model)
+                {
+
+                    <div class="item">
+                        <div class="pad15">
+
+                            <img src="@Book.CoverImageUrl" class="img-thumbnail" style="height: 306px" />
+                            <div class="card-body">
+                                <p class="card-title">Title: @Book.Title</p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="/book/GetBook/@Book.Id" class="btn btn-sm btn-outline-secondary"> View Details</a>
+                                    </div>
+                                    <small class="text-muted">@Book.Author</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+            </div>
+            <button class="btn btn-primary leftLst d-block" data-count="@Model.Count()">
+                <img class="NextPrev prev-icon" src="~/images/Prev.png" />
+            </button>
+            <button class="btn btn-primary rightLst d-block" data-count="@Model.Count()">
+                <img class="NextPrev next-icon" src="~/images/nextButton.png" />
+            </button>
+        </div>
+    </div>
+</div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        var itemsMainDiv = ('.MultiCarousel');
+        var itemsDiv = ('.MultiCarousel-inner');
+        var itemWidth = "";
+
+        $('.leftLst, .rightLst').click(function () {
+            var condition = $(this).hasClass("leftLst");
+            if (condition)
+                click(0, this);
+            else
+                click(1, this)
+        });
+
+        ResCarouselSize();
+
+
+
+
+        $(window).resize(function () {
+            ResCarouselSize();
+        });
+
+        //this function define the size of the items
+        function ResCarouselSize() {
+            var incno = 0;
+            var dataItems = ("data-items");
+            var itemClass = ('.item');
+            var id = 0;
+            var btnParentSb = '';
+            var itemsSplit = '';
+            var sampwidth = $(itemsMainDiv).width();
+            var bodyWidth = $('body').width();
+            $(itemsDiv).each(function () {
+                id = id + 1;
+                var itemNumbers = $(this).find(itemClass).length;
+                btnParentSb = $(this).parent().attr(dataItems);
+                itemsSplit = btnParentSb.split(',');
+                $(this).parent().attr("id", "MultiCarousel" + id);
+
+
+                if (bodyWidth >= 1200) {
+                    incno = itemsSplit[3];
+                    itemWidth = (sampwidth + 12) / incno;
+                }
+                else if (bodyWidth >= 992) {
+                    incno = itemsSplit[2];
+                    itemWidth = sampwidth / incno;
+                }
+                else if (bodyWidth >= 768) {
+                    incno = itemsSplit[1];
+                    itemWidth = sampwidth / incno;
+                }
+                else {
+                    incno = itemsSplit[0];
+                    itemWidth = sampwidth / incno;
+                }
+                $(this).css({ 'transform': 'translateX(0px)', 'width': itemWidth * itemNumbers });
+                $(this).find(itemClass).each(function () {
+                    $(this).outerWidth(itemWidth);
+                });
+
+                $(".leftLst").addClass("over");
+                $(".rightLst").removeClass("over");
+
+            });
+        }
+
+
+        //this function used to move the items
+        function ResCarousel(e, el, s) {
+            var leftBtn = ('.leftLst');
+            var rightBtn = ('.rightLst');
+            var translateXval = '';
+            var divStyle = $(el + ' ' + itemsDiv).css('transform');
+            var values = divStyle.match(/-?[\d\.]+/g);
+            var xds = Math.abs(values[4]);
+            if (e == 0) {
+                translateXval = parseInt(xds) - parseInt(itemWidth * s);
+                $(el + ' ' + rightBtn).removeClass("over");
+
+                if (translateXval <= itemWidth / 2) {
+                    translateXval = 0;
+                    $(el + ' ' + leftBtn).addClass("over");
+                }
+            }
+            else if (e == 1) {
+                var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+                translateXval = parseInt(xds) + parseInt(itemWidth * s);
+                $(el + ' ' + leftBtn).removeClass("over");
+
+                if (translateXval >= itemsCondition - itemWidth / 2) {
+                    translateXval = itemsCondition;
+                    $(el + ' ' + rightBtn).addClass("over");
+                }
+            }
+            $(el + ' ' + itemsDiv).css('transform', 'translateX(' + -translateXval + 'px)');
+        }
+
+        //It is used to get some elements from btn
+        function click(ell, ee) {
+            var Parent = "#" + $(ee).parent().attr("id");
+            var slide = $(Parent).attr("data-slide");
+            ResCarousel(ell, Parent, slide);
+        }
+
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var buttons = document.querySelectorAll(".btn.btn-primary.leftLst, .btn.btn-primary.rightLst");
+        var multiCarousel = document.querySelector(".MultiCarousel");
+        var isDesktop = window.innerWidth >= 992;  // Adjust this value based on your desktop breakpoint
+        var count = parseInt(buttons[0].getAttribute('data-count'), 10);  // Assuming all buttons have the same count
+
+        if (isDesktop) {
+            if (count < 6) {
+                multiCarousel.style.display = 'flex';
+                multiCarousel.style.justifyContent = 'center';
+            }
+            buttons.forEach(function (button) {
+                button.style.display = count <= 6 ? 'none' : 'block';
+            });
+        } else {
+            multiCarousel.style.display = '';  // Reset to default
+            multiCarousel.style.justifyContent = '';  // Reset to default
+            buttons.forEach(function (button) {
+                button.style.display = count <= 1 ? 'none' : 'block';  // Ensure they are shown on mobile
+            });
+        }
+    });
+
+    // Add a listener for window resizing to handle if user changes viewport size
+    window.addEventListener('resize', function () {
+        var buttons = document.querySelectorAll(".btn.btn-primary.leftLst, .btn.btn-primary.rightLst");
+        var multiCarousel = document.querySelector(".MultiCarousel");
+        var isDesktop = window.innerWidth >= 992;
+        var count = parseInt(buttons[0].getAttribute('data-count'), 10);  // Assuming all buttons have the same count
+
+        if (isDesktop) {
+            if (count < 6) {
+                multiCarousel.style.display = 'flex';
+                multiCarousel.style.justifyContent = 'center';
+            }
+            buttons.forEach(function (button) {
+                button.style.display = count <= 6 ? 'none' : 'block';
+            });
+        } else {
+            multiCarousel.style.display = '';  // Reset to default
+            multiCarousel.style.justifyContent = '';  // Reset to default
+            buttons.forEach(function (button) {
+                button.style.display = count <= 1 ? 'none' : 'block';  // Ensure they are shown on mobile
+            });
+        }
+    });
+
+
+ 
+</script>
